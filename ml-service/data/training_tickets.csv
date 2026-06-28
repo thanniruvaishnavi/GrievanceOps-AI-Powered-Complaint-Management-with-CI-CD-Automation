@@ -1,0 +1,31 @@
+text,category,priority
+"App crashes every time I try to log in",LOGIN_BUG,HIGH
+"Cannot log into my account, password not working",LOGIN_BUG,HIGH
+"Login page is stuck on loading forever",LOGIN_BUG,MEDIUM
+"Forgot password reset link is broken",ACCOUNT,MEDIUM
+"I want to change my email address on the account",ACCOUNT,LOW
+"How do I delete my account permanently",ACCOUNT,LOW
+"I was charged twice for my subscription this month",BILLING,HIGH
+"Invoice has the wrong amount, please refund",BILLING,HIGH
+"Need a copy of last month's invoice",BILLING,LOW
+"Payment failed but money was deducted from my card",BILLING,CRITICAL
+"The app is extremely slow when loading the dashboard",PERFORMANCE,MEDIUM
+"Pages take forever to load on mobile",PERFORMANCE,MEDIUM
+"Server keeps timing out during checkout",PERFORMANCE,HIGH
+"Entire website is down, cannot access anything",OUTAGE,CRITICAL
+"Service has been down for the last hour",OUTAGE,CRITICAL
+"Getting 500 internal server error on every page",OUTAGE,CRITICAL
+"How do I export my data to CSV",FEATURE_REQUEST,LOW
+"Please add dark mode to the app",FEATURE_REQUEST,LOW
+"Can you add bulk delete option for tickets",FEATURE_REQUEST,LOW
+"The dashboard charts are not displaying correctly",UI_BUG,MEDIUM
+"Button on the settings page does nothing when clicked",UI_BUG,MEDIUM
+"Text overlapping on the mobile view",UI_BUG,LOW
+"I am extremely frustrated, nothing works and support is useless",COMPLAINT,HIGH
+"This is the third time I am raising the same issue",COMPLAINT,HIGH
+"Very disappointed with the service quality lately",COMPLAINT,MEDIUM
+"Thank you for the quick fix, works great now",FEEDBACK,LOW
+"Great product overall, just one small suggestion",FEEDBACK,LOW
+"Two factor authentication code never arrives via SMS",SECURITY,HIGH
+"I think my account has been hacked, unknown logins",SECURITY,CRITICAL
+"Suspicious activity detected on my account",SECURITY,CRITICAL

@@ -1,0 +1,81 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: support_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: supportsaas
+      POSTGRES_USER: supportsaas
+      POSTGRES_PASSWORD: supportsaas
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supportsaas"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: support_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ml-service:
+    build: ./ml-service
+    container_name: support_ml
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  backend:
+    build: ./backend
+    container_name: support_backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/supportsaas
+      SPRING_DATASOURCE_USERNAME: supportsaas
+      SPRING_DATASOURCE_PASSWORD: supportsaas
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      ML_SERVICE_URL: http://ml-service:8000
+      JWT_SECRET: change-this-super-secret-key-in-prod-min-256-bits
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ml-service:
+        condition: service_started
+
+  frontend:
+    build: ./frontend
+    container_name: support_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8080/api
+    depends_on:
+      - backend
+
+volumes:
+  pg_data:
