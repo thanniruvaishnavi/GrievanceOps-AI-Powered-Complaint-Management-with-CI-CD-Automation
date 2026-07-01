@@ -24,48 +24,63 @@ export default function Login() {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-16 bg-white border border-slate-200 rounded-xl p-8 shadow-sm">
-      <h1 className="text-2xl font-bold mb-1">Welcome back</h1>
-      <p className="text-slate-500 mb-6 text-sm">Log in to manage your support tickets.</p>
-
-      {error && <div className="bg-red-50 text-red-600 text-sm p-3 rounded-md mb-4">{error}</div>}
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="text-sm font-medium text-slate-700">Email</label>
-          <input
-            type="email"
-            required
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="mt-1 w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-            placeholder="admin@support.com"
-          />
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent-light text-xs font-medium mono mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-success" /> ML pipeline online
+          </span>
+          <h1 className="font-display text-3xl font-semibold text-white">Welcome back</h1>
+          <p className="text-dim mt-2 text-sm">Sign in to triage and resolve complaints.</p>
         </div>
-        <div>
-          <label className="text-sm font-medium text-slate-700">Password</label>
-          <input
-            type="password"
-            required
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="mt-1 w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-            placeholder="••••••••"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-md"
-        >
-          {submitting ? 'Logging in...' : 'Log in'}
-        </button>
-      </form>
 
-      <p className="text-sm text-slate-500 mt-4 text-center">
-        Don't have an account?{' '}
-        <Link to="/register" className="text-brand-600 font-medium">Sign up</Link>
-      </p>
+        <div className="glass tilt-card p-8">
+          {error && (
+            <div className="bg-danger/10 border border-danger/20 text-danger text-sm px-3 py-2.5 rounded-lg mb-5">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="text-xs font-medium text-dim uppercase tracking-wide">Email</label>
+              <input
+                type="email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="input-glass mt-1.5 w-full px-3.5 py-2.5 text-sm"
+                placeholder="admin@support.com"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-medium text-dim uppercase tracking-wide">Password</label>
+              <input
+                type="password"
+                required
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                className="input-glass mt-1.5 w-full px-3.5 py-2.5 text-sm"
+                placeholder="••••••••"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="btn-primary w-full py-2.5 text-sm disabled:opacity-50 shadow-glow"
+            >
+              {submitting ? 'Signing in…' : 'Sign in'}
+            </button>
+          </form>
+        </div>
+
+        <p className="text-sm text-dim mt-6 text-center">
+          New here?{' '}
+          <Link to="/register" className="text-accent-light font-medium hover:text-white transition-colors">
+            Create an account
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }

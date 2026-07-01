@@ -1,19 +1,19 @@
 const COLORS = {
-  LOW: 'bg-slate-100 text-slate-700',
-  MEDIUM: 'bg-blue-100 text-blue-700',
-  HIGH: 'bg-orange-100 text-orange-700',
-  CRITICAL: 'bg-red-100 text-red-700',
-  OPEN: 'bg-amber-100 text-amber-700',
-  IN_PROGRESS: 'bg-blue-100 text-blue-700',
-  RESOLVED: 'bg-green-100 text-green-700',
-  CLOSED: 'bg-slate-200 text-slate-600',
-  DUPLICATE: 'bg-purple-100 text-purple-700',
+  LOW: 'bg-slate-500/15 text-slate-300 border-slate-400/20',
+  MEDIUM: 'bg-accent/15 text-accent-light border-accent/20',
+  HIGH: 'bg-warn/15 text-warn border-warn/20',
+  CRITICAL: 'bg-danger/15 text-danger border-danger/20',
+  OPEN: 'bg-warn/15 text-warn border-warn/20',
+  IN_PROGRESS: 'bg-accent/15 text-accent-light border-accent/20',
+  RESOLVED: 'bg-success/15 text-success border-success/20',
+  CLOSED: 'bg-slate-500/15 text-slate-300 border-slate-400/20',
+  DUPLICATE: 'bg-purple-500/15 text-purple-300 border-purple-400/20',
 }
 
 export default function Badge({ value }) {
-  const classes = COLORS[value] || 'bg-slate-100 text-slate-700'
+  const classes = COLORS[value] || 'bg-slate-500/15 text-slate-300 border-slate-400/20'
   return (
-    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${classes}`}>
+    <span className={`mono text-[11px] font-medium tracking-wide uppercase px-2 py-1 rounded-md border ${classes}`}>
       {value?.replace('_', ' ')}
     </span>
   )

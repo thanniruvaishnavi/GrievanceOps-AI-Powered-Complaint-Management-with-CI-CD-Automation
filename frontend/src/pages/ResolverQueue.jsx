@@ -13,11 +13,16 @@ export default function ResolverQueue() {
   }, [])
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 px-4">
-      <h1 className="text-xl font-bold mb-6">My Resolver Queue</h1>
-      {loading && <p className="text-slate-400">Loading...</p>}
+    <div className="max-w-3xl mx-auto mt-12 px-4">
+      <h1 className="font-display text-2xl font-semibold text-white mb-1">Resolver queue</h1>
+      <p className="text-dim text-sm mb-8">Tickets routed to you by the assignment engine.</p>
+
+      {loading && <p className="text-dim text-sm">Loading…</p>}
       {!loading && tickets.length === 0 && (
-        <p className="text-slate-400">No tickets assigned to you right now.</p>
+        <div className="glass p-10 text-center">
+          <p className="text-white font-medium">Queue is empty</p>
+          <p className="text-dim text-sm mt-1.5">No tickets assigned to you right now.</p>
+        </div>
       )}
       <div className="space-y-3">
         {tickets.map((ticket) => (

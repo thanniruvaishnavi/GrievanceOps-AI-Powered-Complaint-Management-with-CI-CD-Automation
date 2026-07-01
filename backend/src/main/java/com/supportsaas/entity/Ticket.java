@@ -39,10 +39,12 @@ public class Ticket {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Priority priority = Priority.MEDIUM;   // filled/overridden by ML service
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private TicketStatus status = TicketStatus.OPEN;
 
     @Column
@@ -52,9 +54,11 @@ public class Ticket {
     private Long duplicateOfTicketId; // set if ML flags this as a duplicate
 
     @Column(nullable = false, updatable = false)
+    @Builder.Default
     private Instant createdAt = Instant.now();
 
     @Column
+    @Builder.Default
     private Instant updatedAt = Instant.now();
 
     @PreUpdate

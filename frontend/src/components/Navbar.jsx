@@ -11,38 +11,44 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between">
-      <Link to="/" className="text-lg font-bold text-brand-700">
-        Smart Support SaaS
+    <nav className="sticky top-0 z-50 glass border-x-0 border-t-0 rounded-none px-6 py-3.5 flex items-center justify-between">
+      <Link to="/" className="flex items-center gap-2.5 font-display text-lg font-semibold text-white">
+        <span className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center text-xs font-bold shadow-glow">
+          GO
+        </span>
+        GrievanceOps
       </Link>
 
-      <div className="flex items-center gap-4 text-sm">
+      <div className="flex items-center gap-5 text-sm">
         {user ? (
           <>
-            <Link to="/tickets" className="hover:text-brand-600">My Tickets</Link>
+            <Link to="/tickets" className="text-dim hover:text-white transition-colors">My Tickets</Link>
             {user.role === 'RESOLVER' && (
-              <Link to="/resolver" className="hover:text-brand-600">Resolver Queue</Link>
+              <Link to="/resolver" className="text-dim hover:text-white transition-colors">Resolver Queue</Link>
             )}
             {user.role === 'ADMIN' && (
-              <Link to="/admin" className="hover:text-brand-600">Admin Dashboard</Link>
+              <Link to="/admin" className="text-dim hover:text-white transition-colors">Analytics</Link>
             )}
-            <span className="text-slate-400">|</span>
-            <span className="text-slate-500">{user.email} · {user.role}</span>
+            <span className="w-px h-4 bg-white/10" />
+            <div className="flex items-center gap-2 text-dim">
+              <span className="w-2 h-2 rounded-full bg-success" />
+              <span className="mono text-xs">{user.email}</span>
+              <span className="px-2 py-0.5 rounded-full bg-accent/15 text-accent-light text-[11px] font-medium tracking-wide uppercase">
+                {user.role}
+              </span>
+            </div>
             <button
               onClick={handleLogout}
-              className="bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-md font-medium"
+              className="text-dim hover:text-white border border-white/10 hover:border-white/20 px-3 py-1.5 rounded-lg transition-colors"
             >
-              Logout
+              Sign out
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="hover:text-brand-600">Login</Link>
-            <Link
-              to="/register"
-              className="bg-brand-600 hover:bg-brand-700 text-white px-3 py-1.5 rounded-md font-medium"
-            >
-              Sign up
+            <Link to="/login" className="text-dim hover:text-white transition-colors">Log in</Link>
+            <Link to="/register" className="btn-primary px-4 py-2 text-sm shadow-glow">
+              Get started
             </Link>
           </>
         )}

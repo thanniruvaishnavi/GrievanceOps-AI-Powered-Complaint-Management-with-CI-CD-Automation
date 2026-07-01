@@ -16,21 +16,28 @@ export default function TicketList() {
   }, [])
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 px-4">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-bold">My Tickets</h1>
-        <Link
-          to="/tickets/new"
-          className="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-        >
-          + New Ticket
+    <div className="max-w-3xl mx-auto mt-12 px-4">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="font-display text-2xl font-semibold text-white">My Tickets</h1>
+          <p className="text-dim text-sm mt-1">Every ticket you raise is auto-classified and prioritized.</p>
+        </div>
+        <Link to="/tickets/new" className="btn-primary px-4 py-2.5 text-sm shadow-glow whitespace-nowrap">
+          + New ticket
         </Link>
       </div>
 
-      {loading && <p className="text-slate-400">Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {loading && <p className="text-dim text-sm">Loading…</p>}
+      {error && <p className="text-danger text-sm">{error}</p>}
+
       {!loading && tickets.length === 0 && (
-        <p className="text-slate-400">You haven't raised any tickets yet.</p>
+        <div className="glass p-10 text-center">
+          <p className="text-white font-medium">No tickets yet</p>
+          <p className="text-dim text-sm mt-1.5 mb-5">Raise your first ticket — the ML pipeline will classify it instantly.</p>
+          <Link to="/tickets/new" className="btn-primary inline-block px-4 py-2.5 text-sm shadow-glow">
+            Raise a ticket
+          </Link>
+        </div>
       )}
 
       <div className="space-y-3">

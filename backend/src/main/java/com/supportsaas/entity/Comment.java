@@ -32,5 +32,6 @@ public class Comment {
     private String body;
 
     @Column(nullable = false, updatable = false)
+    @Builder.Default
     private Instant createdAt = Instant.now();
 }

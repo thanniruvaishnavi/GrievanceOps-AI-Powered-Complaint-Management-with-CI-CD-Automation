@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,17 +46,16 @@ class TicketServiceTest {
         request.setSubject("App crashes on login");
         request.setDescription("Every time I log in the app crashes immediately.");
 
-        Ticket savedTicket = Ticket.builder()
-                .id(10L)
-                .subject(request.getSubject())
-                .description(request.getDescription())
-                .createdBy(creator)
-                .status(TicketStatus.OPEN)
-                .priority(Priority.MEDIUM)
-                .build();
-
+        // Simulate what a real DB does: assign a generated ID on the first save,
+        // then return the same object unchanged on the second save.
         when(ticketRepository.save(any(Ticket.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
+                .thenAnswer(invocation -> {
+                    Ticket t = invocation.getArgument(0);
+                    if (t.getId() == null) {
+                        t.setId(10L);  // mimic DB-generated identity
+                    }
+                    return t;
+                });
 
         when(mlClientService.analyze(any(), anyString(), anyString()))
                 .thenReturn(MlAnalysisResponse.builder()

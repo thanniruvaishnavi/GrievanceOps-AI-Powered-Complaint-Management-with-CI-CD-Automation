@@ -23,44 +23,52 @@ export default function NewTicket() {
   }
 
   return (
-    <div className="max-w-lg mx-auto mt-10 bg-white border border-slate-200 rounded-xl p-8 shadow-sm">
-      <h1 className="text-xl font-bold mb-1">Raise a new ticket</h1>
-      <p className="text-slate-500 mb-6 text-sm">
-        Our ML pipeline will auto-categorize, prioritize, and check for duplicates.
-      </p>
+    <div className="max-w-xl mx-auto mt-12 px-4">
+      <div className="mb-6">
+        <h1 className="font-display text-2xl font-semibold text-white">Raise a ticket</h1>
+        <p className="text-dim text-sm mt-1.5">
+          Our ML pipeline classifies category, predicts priority, scores sentiment, and checks for duplicates — instantly.
+        </p>
+      </div>
 
-      {error && <div className="bg-red-50 text-red-600 text-sm p-3 rounded-md mb-4">{error}</div>}
+      <div className="glass tilt-card p-8">
+        {error && (
+          <div className="bg-danger/10 border border-danger/20 text-danger text-sm px-3 py-2.5 rounded-lg mb-5">
+            {error}
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="text-sm font-medium text-slate-700">Subject</label>
-          <input
-            required
-            value={form.subject}
-            onChange={(e) => setForm({ ...form, subject: e.target.value })}
-            className="mt-1 w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-            placeholder="App crashes on login"
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium text-slate-700">Description</label>
-          <textarea
-            required
-            rows={5}
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="mt-1 w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"
-            placeholder="Describe the issue in as much detail as possible..."
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-md"
-        >
-          {submitting ? 'Submitting...' : 'Submit ticket'}
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="text-xs font-medium text-dim uppercase tracking-wide">Subject</label>
+            <input
+              required
+              value={form.subject}
+              onChange={(e) => setForm({ ...form, subject: e.target.value })}
+              className="input-glass mt-1.5 w-full px-3.5 py-2.5 text-sm"
+              placeholder="App crashes on login"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-dim uppercase tracking-wide">Description</label>
+            <textarea
+              required
+              rows={5}
+              value={form.description}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              className="input-glass mt-1.5 w-full px-3.5 py-2.5 text-sm resize-none"
+              placeholder="Describe the issue in as much detail as possible..."
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="btn-primary w-full py-2.5 text-sm disabled:opacity-50 shadow-glow"
+          >
+            {submitting ? 'Analyzing & submitting…' : 'Submit ticket'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

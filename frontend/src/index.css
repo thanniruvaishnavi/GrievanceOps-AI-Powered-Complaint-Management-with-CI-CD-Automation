@@ -2,6 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-slate-50 text-slate-800;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0b1220;
+  --panel: #111827;
+  --panel-2: #161f33;
+  --border: rgba(148, 163, 184, 0.12);
+  --text: #f8fafc;
+  --text-dim: #94a3b8;
+  --accent: #6366f1;
+  --accent-2: #8b8ff7;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warn: #f59e0b;
 }
+
+* { box-sizing: border-box; }
+
+html, body, #root { min-height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .display {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Ambient aurora backdrop — fixed behind all content */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--bg);
+}
+.aurora-bg::before,
+.aurora-bg::after {
+  content: '';
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+.aurora-bg::before {
+  background: radial-gradient(circle, var(--accent), transparent 70%);
+  top: -20%;
+  left: -10%;
+}
+.aurora-bg::after {
+  background: radial-gradient(circle, #14b8a6, transparent 70%);
+  bottom: -25%;
+  right: -10%;
+  animation-delay: -8s;
+}
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(6%, 8%) scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before, .aurora-bg::after { animation: none; }
+}
+
+/* Glass panel — the recurring signature surface */
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+}
+
+/* Subtle 3D tilt-on-hover for interactive cards */
+.tilt-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-card:hover {
+  transform: translateY(-3px) rotateX(2deg) rotateY(-2deg);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 16px 40px -12px rgba(99, 102, 241, 0.25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card:hover { transform: none; }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #4f46e5);
+  color: white;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+.btn-primary:hover { filter: brightness(1.12); }
+.btn-primary:active { transform: scale(0.98); }
+
+.input-glass {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.input-glass:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.06);
+}
+.input-glass::placeholder { color: var(--text-dim); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.25); border-radius: 8px; }
+
